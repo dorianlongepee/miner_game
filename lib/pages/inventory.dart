@@ -34,14 +34,31 @@ class _InventoryState extends State<Inventory> {
                 icon: const Icon(Icons.sort_rounded)),
           ],
         ),
-        body: ListView.builder(
-          itemCount: inventory.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(
-                  '${inventory[index].name} x${inventory[index].quantity}'),
-            );
-          },
+        body: ListView(
+          children: [
+            for (var item in inventory)
+              Card(
+                margin: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        item.name,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        item.quantity.toString(),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
         ));
   }
 }

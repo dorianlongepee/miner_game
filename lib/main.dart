@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         home: const HomePage(),
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
