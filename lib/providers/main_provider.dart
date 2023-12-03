@@ -33,7 +33,17 @@ class MainProvider extends ChangeNotifier {
   ];
 
   void mineResource(Ressource ressource) {
-    ressource.counter++;
+    if (ressource.name == 'Bois' &&
+        inventory.indexWhere((element) => element.name == 'Hache') != -1) {
+      ressource.counter += 3;
+    } else if ((ressource.name == 'Minerai de fer' ||
+            ressource.name == 'Minerai de cuivre' ||
+            ressource.name == 'Charbon') &&
+        inventory.indexWhere((element) => element.name == 'Pioche') != -1) {
+      ressource.counter += 5;
+    } else {
+      ressource.counter++;
+    }
     notifyListeners();
   }
 
@@ -135,4 +145,14 @@ class MainProvider extends ChangeNotifier {
   // -----
 
   List<StoreItem> inventory = [];
+
+  void sortInventoryByName() {
+    inventory.sort((a, b) => a.name.compareTo(b.name));
+    notifyListeners();
+  }
+
+  void sortInventoryByQuantity() {
+    inventory.sort((a, b) => b.quantity.compareTo(a.quantity));
+    notifyListeners();
+  }
 }

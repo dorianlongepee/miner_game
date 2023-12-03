@@ -18,6 +18,21 @@ class _InventoryState extends State<Inventory> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('Inventaire'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Provider.of<MainProvider>(context, listen: false)
+                    .sortInventoryByName();
+              },
+              icon: const Icon(Icons.sort_by_alpha),
+            ),
+            IconButton(
+                onPressed: () {
+                  Provider.of<MainProvider>(context, listen: false)
+                      .sortInventoryByQuantity();
+                },
+                icon: const Icon(Icons.sort_rounded)),
+          ],
         ),
         body: ListView.builder(
           itemCount: inventory.length,

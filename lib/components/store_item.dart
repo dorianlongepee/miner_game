@@ -18,9 +18,19 @@ class StoreItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              item.name,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  item.name,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  item.description,
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+              ],
             ),
             SizedBox(height: 8),
             Text(

@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: mainProvider.ressourceList.length,
         ),
         itemCount: mainProvider.ressourceList.length,
         itemBuilder: (context, index) {
