@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Ressource {
-  String name;
-  Color color;
-  String description;
+  final String name;
+  final Color color;
+  final String description;
   int counter;
 
   Ressource({

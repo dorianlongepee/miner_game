@@ -14,9 +14,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    // -----
-    // Get the provider
-    // -----
     final MainProvider mainProvider = Provider.of<MainProvider>(context);
 
     return Scaffold(
@@ -33,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.build_circle_rounded),
           ),
         ],
       ),
