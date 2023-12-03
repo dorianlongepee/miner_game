@@ -39,10 +39,27 @@ class MainProvider extends ChangeNotifier {
 
   void craftItem(StoreItem item) {
     for (var ressource in item.cost.keys) {
-      var ressourceIndex = ressourceList.indexWhere((element) => element.name == ressource);
+      var ressourceIndex =
+          ressourceList.indexWhere((element) => element.name == ressource);
+      var inventoryIndex =
+          inventory.indexWhere((element) => element.name == ressource);
       if (ressourceIndex != -1) {
         ressourceList[ressourceIndex].counter -= item.cost[ressource]!;
+      } else if (inventoryIndex != -1) {
+        inventory[inventoryIndex].quantity -= item.cost[ressource]!;
+        if (inventory[inventoryIndex].quantity == 0) {
+          inventory.removeAt(inventoryIndex);
+        }
       }
+    }
+
+    var existingItemIndex =
+        inventory.indexWhere((element) => element.name == item.name);
+    if (existingItemIndex != -1) {
+      inventory[existingItemIndex].quantity++;
+    } else {
+      inventory.add(item);
+      inventory.last.quantity = 1;
     }
     notifyListeners();
   }
@@ -112,4 +129,10 @@ class MainProvider extends ChangeNotifier {
           'Un fil électrique pour fabriquer des composants électroniques',
     )
   ];
+
+  // -----
+  // Inventory
+  // -----
+
+  List<StoreItem> inventory = [];
 }
