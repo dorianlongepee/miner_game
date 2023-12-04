@@ -3,51 +3,76 @@ import 'package:flutter/material.dart';
 import '../models/Ressource.dart';
 import '../models/StoreItem.dart';
 
-// This provider is used to store the state of the app and some data
 class MainProvider extends ChangeNotifier {
-  // -----
-  // The list of ressources
-  // -----
+  /// This provider is used to store the state of the app and some data
 
+  // The list of ressources
   List<Ressource> ressourceList = [
     Ressource(
-      color: const Color(0xFF967969),
-      name: 'Bois',
-      description: 'Du bois brut',
-    ),
+        color: const Color(0xFF967969),
+        name: 'Bois',
+        description: 'Du bois brut',
+        isUnlocked: true),
     Ressource(
-      color: const Color(0xFFced4da),
-      name: 'Minerai de fer',
-      description: 'Du minerai de fer brut',
-    ),
+        color: const Color(0xFFced4da),
+        name: 'Minerai de fer',
+        description: 'Du minerai de fer brut',
+        isUnlocked: true),
     Ressource(
-      color: const Color.fromARGB(255, 47, 32, 25),
-      name: 'Minerai de cuivre',
-      description: 'Du minerai de cuivre brut',
-    ),
+        color: const Color.fromARGB(255, 47, 32, 25),
+        name: 'Minerai de cuivre',
+        description: 'Du minerai de cuivre brut',
+        isUnlocked: true),
     Ressource(
-      color: const Color(0xFF000000),
-      name: 'Charbon',
-      description: 'Du minerai de charbon',
-    ),
+        color: const Color(0xFF000000),
+        name: 'Charbon',
+        description: 'Du minerai de charbon',
+        isUnlocked: false,
+        condition: '1000 Lingots de fer et 1000 Lingots de cuivre'),
   ];
 
   void mineResource(Ressource ressource) {
+    /// Mine a ressource.
+    ///
+    /// This function will increment the counter of the ressource
+    /// depending on the tools the user has.
     if (ressource.name == 'Bois' &&
         inventory.indexWhere((element) => element.name == 'Hache') != -1) {
-      ressource.counter += 3;
+      ressource.counter += 3 *
+          inventory.firstWhere((element) => element.name == 'Hache').quantity;
     } else if ((ressource.name == 'Minerai de fer' ||
             ressource.name == 'Minerai de cuivre' ||
             ressource.name == 'Charbon') &&
         inventory.indexWhere((element) => element.name == 'Pioche') != -1) {
-      ressource.counter += 5;
+      ressource.counter += 5 *
+          inventory.firstWhere((element) => element.name == 'Pioche').quantity;
     } else {
       ressource.counter++;
     }
+    checkUnlockedRessources();
     notifyListeners();
   }
 
+  void checkUnlockedRessources() {
+    /// Check if a ressource is unlocked.
+    ///
+    /// This function will check if a ressource is unlocked after mining or crafting
+    /// and if it is, it will unlock it.
+    for (var ressource in ressourceList) {
+      if (ressource.isUnlocked == false) {
+        if (ressource.name == 'Charbon') {
+          ressource.isUnlocked = true;
+        }
+      }
+    }
+  }
+
   void craftItem(StoreItem item) {
+    /// Craft an item.
+    ///
+    /// This function will remove the cost of the item
+    /// from the ressources or the inventory
+    /// and add the item to the inventory.
     for (var ressource in item.cost.keys) {
       var ressourceIndex =
           ressourceList.indexWhere((element) => element.name == ressource);
@@ -62,7 +87,6 @@ class MainProvider extends ChangeNotifier {
         }
       }
     }
-
     var existingItemIndex =
         inventory.indexWhere((element) => element.name == item.name);
     if (existingItemIndex != -1) {
@@ -71,13 +95,11 @@ class MainProvider extends ChangeNotifier {
       inventory.add(item);
       inventory.last.quantity = 1;
     }
+    checkUnlockedRessources();
     notifyListeners();
   }
 
-  // -----
   // The list of StoreItem
-  // -----
-
   List<StoreItem> storeItemList = [
     StoreItem(
       name: 'Hache',
@@ -140,10 +162,7 @@ class MainProvider extends ChangeNotifier {
     )
   ];
 
-  // -----
-  // Inventory
-  // -----
-
+  // Inventory related
   List<StoreItem> inventory = [];
 
   void sortInventoryByName() {

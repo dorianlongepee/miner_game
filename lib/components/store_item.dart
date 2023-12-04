@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:miner_game/models/StoreItem.dart';
 
 class StoreItemCard extends StatelessWidget {
+  /// Widget that displays a store item
+  ///
+  /// [item] store items are defined in [providers/main_provider.dart]
+  /// [canBuy] is true if the user can buy the item, thus enabling craft button
   final StoreItem item;
   final bool canBuy;
   final VoidCallback onBuyPressed;
