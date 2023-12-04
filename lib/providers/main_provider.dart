@@ -60,7 +60,15 @@ class MainProvider extends ChangeNotifier {
     /// and if it is, it will unlock it.
     for (var ressource in ressourceList) {
       if (ressource.isUnlocked == false) {
-        if (ressource.name == 'Charbon') {
+        if (ressource.name == 'Charbon' &&
+            inventory
+                .where((element) => element.name == 'Lingot de fer')
+                .where((element) => element.quantity >= 1000)
+                .isNotEmpty &&
+            inventory
+                .where((element) => element.name == 'Lingot de cuivre')
+                .where((element) => element.quantity >= 1000)
+                .isNotEmpty) {
           ressource.isUnlocked = true;
         }
       }
