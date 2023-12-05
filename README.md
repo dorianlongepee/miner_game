@@ -6,7 +6,7 @@ Application réalisée dans le cadre du cours développment natif (Flutter) où 
 
 ## Installation
 
-Pour installer l'application, il suffit de cloner le projet et de lancer la commande `flutter run` dans le dossier du projet.
+Pour installer l'application, il suffit de cloner le projet et de lancer les commandes `flutter pub get` et `flutter run` dans le dossier du projet.
 
 ## Utilisation
 
