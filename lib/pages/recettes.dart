@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miner_game/components/store_item.dart';
+import 'package:miner_game/widgets/store_item.dart';
 import 'package:miner_game/models/Ressource.dart';
 import 'package:miner_game/models/StoreItem.dart';
 import 'package:miner_game/providers/main_provider.dart';
